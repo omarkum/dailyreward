@@ -1,0 +1,9 @@
+name: dailyreward
+version: 10
+author: OmarKum
+main: com.dailyreward.Main
+api-version: 1.17
+
+commands:
+  dailyreward:
+   aliases: [dr]
