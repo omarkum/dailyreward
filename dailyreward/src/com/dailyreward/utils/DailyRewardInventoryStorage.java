@@ -18,16 +18,16 @@ public class DailyRewardInventoryStorage {
 		return invs.get(p);
 	}
 
-	public void addInventoryToStorage(Player p,Inventory inv) {
+	public static void addInventoryToStorage(Player p,Inventory inv) {
 		invs.put(p, inv);
 		return;
 	}
 	
-	public void removeInventoryFromStorage(Player p,Inventory inv) {
+	public static void removeInventoryFromStorage(Player p,Inventory inv) {
 		invs.remove(p, inv);
 		return;
 	}
-	public boolean isPlayerInventoryExist(Player p,Inventory inv) {
+	public static boolean isPlayerInventoryExist(Player p,Inventory inv) {
 		if(invs.containsKey(p)&&invs.containsValue(inv)) {
 			return true;
 		}

@@ -107,6 +107,7 @@ public class RewardGUI implements Listener {
 			day++;
 		}
 		//p.openInventory(inv);
+		DailyRewardInventoryStorage.addInventoryToStorage(p,inv);
 		return inv;
 	}
 	@EventHandler
@@ -142,6 +143,7 @@ public class RewardGUI implements Listener {
 				p.getInventory().addItem(item);
 				player_data.set("PlayerData."+p.getUniqueId().toString()+".Last_Claim_Time", LocalDate.now().toString());
 				player_data.set("PlayerData."+p.getUniqueId().toString()+".Reward_Days",reward_day+1);
+				DailyRewardInventoryStorage.removeInventoryFromStorage(p, inv);
 			}
 			//p.sendMessage("yeeeee");
 		}
