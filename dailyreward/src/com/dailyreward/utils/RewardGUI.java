@@ -99,6 +99,7 @@ public class RewardGUI implements Listener {
 	}*/
 	public void InventoryClickEvent(InventoryClickEvent e) {
 		p = (Player) e.getWhoClicked();
+		inv = DailyRewardInventoryStorage.getPlayerDailyRewardInventory((Player) e.getWhoClicked());
 		if(!e.getInventory().equals(inv)) return;
 		e.setCancelled(true);
 		//p = (Player) e.getWhoClicked();
