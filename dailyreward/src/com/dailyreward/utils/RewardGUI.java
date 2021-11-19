@@ -67,6 +67,8 @@ public class RewardGUI implements Listener {
 		ItemStack item = new ItemStack(Material.BLACK_WOOL);
 		ItemMeta meta = null;
 		reward_day = player_data.getInt("PlayerData."+p.getUniqueId().toString()+".Reward_Days");
+		String last_claim_date = player_data.getString("PlayerData."+p.getUniqueId().toString()+".Last_Claim_Time");
+		LocalDate.now().compareTo(LocalDate.parse(last_claim_date));
 		//Bukkit.getConsoleSender().sendMessage(""+reward_day);
 		
 		int day=1;
@@ -80,7 +82,25 @@ public class RewardGUI implements Listener {
 			List<String> lore = days;
 			meta.addItemFlags(ItemFlag.HIDE_ENCHANTS); 
 			meta.addEnchant(Enchantment.DURABILITY, 1, true);
-			if(day<reward_day) {lore.add(ChatColor.RED+"You Have Claimed This Already.");}else if(day>reward_day) {lore.add(ChatColor.GRAY+"You May Claimed This In Future.");} else {lore.add(ChatColor.GREEN+"Click To Claim!"); }
+			if(LocalDate.now().compareTo(LocalDate.parse(last_claim_date))>=1) {
+				if(day<reward_day) {
+					lore.add(ChatColor.RED+"You Have Claimed This Already.");
+					}else if(day>reward_day) {
+						lore.add(ChatColor.GRAY+"You May Claim This In Future.");
+					}else {
+						lore.add(ChatColor.GREEN+"Click To Claim!"); 
+					}	
+			}
+			if(LocalDate.now().compareTo(LocalDate.parse(last_claim_date))==0) {
+				if(day<reward_day-1) {
+					lore.add(ChatColor.RED+"You Have Claimed This Already");
+				}else if (day>reward_day-1) {
+					lore.add(ChatColor.GRAY+"Your May Claim This In Future");
+				}else {
+					lore.add(ChatColor.GOLD+"You Have Claimed This Today!");
+					
+				}
+			}
 			meta.setLore(lore);
 			item.setItemMeta(meta);
 			inv.setItem(day-1, item);
