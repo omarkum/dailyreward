@@ -80,8 +80,8 @@ public class RewardGUI implements Listener {
 			item.setAmount(Integer.parseInt(tmp[1]));
 			meta.setDisplayName("Day"+day+" Reward");
 			List<String> lore = days;
-			//meta.addItemFlags(ItemFlag.HIDE_ENCHANTS); 
-			//meta.addEnchant(Enchantment.DURABILITY, 1, true);
+			meta.addItemFlags(ItemFlag.HIDE_ENCHANTS); 
+			meta.addEnchant(Enchantment.DURABILITY, 1, true);
 			if(LocalDate.now().compareTo(LocalDate.parse(last_claim_date))>=1) {
 				if(day<reward_day) {
 					lore.add(ChatColor.RED+"You Have Claimed This Already.");
