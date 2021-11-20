@@ -26,7 +26,6 @@ public class PlayerDailyRewardsDataFile {
 			}
 			Bukkit.getConsoleSender().sendMessage(Color.RED+"NO FILE CREATED MAKING NEW ONE");
 			player_data = YamlConfiguration.loadConfiguration(datafile);
-			//player_data.createSection("PlayersData");
 			save();
 			
 			

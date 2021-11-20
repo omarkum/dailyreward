@@ -3,10 +3,10 @@ package com.dailyreward;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.dailyreward.actions.CommandExecution;
+import com.dailyreward.listeners.DailyRewardGuiListener;
 import com.dailyreward.utils.PlayerDailyRewardsDataFile;
 import com.dailyreward.utils.PlayerDailyRewardsDataProcessing;
 import com.dailyreward.utils.RewardsConfig;
-import com.dailyreward.utils.TestRewardGUI;
 
 public class Main extends JavaPlugin{
 	
@@ -18,7 +18,8 @@ public class Main extends JavaPlugin{
 		RewardsConfig.save();
 		PlayerDailyRewardsDataFile.save();
 		//new RewardGUI(this);
-		new TestRewardGUI(this);
+		//new TestRewardGUI(this);
+		new DailyRewardGuiListener(this);
 		test();
 		new PlayerDailyRewardsDataProcessing(this);
 		

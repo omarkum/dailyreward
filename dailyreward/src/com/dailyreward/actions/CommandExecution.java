@@ -11,11 +11,13 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import com.dailyreward.utils.PlayerDailyRewardsDataFile;
-import com.dailyreward.utils.TestRewardGUI;
+import com.dailyreward.utils.RewardGUI;
+
+import net.md_5.bungee.api.ChatColor;
 
 public class CommandExecution implements CommandExecutor{
 
-	private static FileConfiguration player_data= null;
+	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String arg, String[] args) {
 		// TODO Auto-generated method stub
@@ -23,36 +25,16 @@ public class CommandExecution implements CommandExecutor{
 			Bukkit.getConsoleSender().sendMessage("This command only available to players");
 			return true;
 		}
-		player_data =PlayerDailyRewardsDataFile.getFileConfiguration();
 		
 		Player p = (Player) sender;
-		//Inventory reward_gui = RewardGUI.GeneratePlayerRewardGUI();
 		
 		if(args.length<1) {
-			//RewardGUI rewardGUI = new RewardGUI(p);
-			//p.openInventory(rewardGUI.generateGUI());
-			TestRewardGUI rewardGUI = new TestRewardGUI(p);
+			RewardGUI rewardGUI = new RewardGUI(p);
 			p.openInventory(rewardGUI.generateGUI());
-			//rewardGUI.generateGUI(p);
 			return true;
+		}else {
+			p.sendMessage(ChatColor.GOLD+"Usage: /dr or /dailyreward");
 		}
-		
-		if(args[0].equalsIgnoreCase("test")) {
-			Inventory inv = Bukkit.createInventory(p, 9, "Daily Rewards");
-			ItemStack item = new ItemStack(Material.BLACK_WOOL);
-			inv.addItem(item);
-			
-			p.openInventory(inv);
-			Bukkit.getPlayer("Adrian1516").openInventory(inv);
-			//p.sendMessage(player_data.get(p.getUniqueId().toString()).toString());
-			return true;
-		}
-		
-		
-		
-		
-		p.sendMessage("recieve");
-		
 		
 		
 		

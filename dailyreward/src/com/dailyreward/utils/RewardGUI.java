@@ -33,43 +33,23 @@ public class RewardGUI implements Listener {
 		reward_list = RewardsConfig.getReward_List();
 		player_data = PlayerDailyRewardsDataFile.getFileConfiguration();
 		this.p=p;
-		//Bukkit.getConsoleSender().sendMessage(""+reward_list.size());
 		int size = reward_list.size()/9;
 		if(size<1) size =1;
-		//Bukkit.getConsoleSender().sendMessage(""+size);
 		inv = Bukkit.createInventory(p, size*9, "Daily Rewards");
-		//reward_day = player_data.getInt("PlayerData."+p.getUniqueId().toString()+".Reward_Days");
 	}
+	
+	
 	public RewardGUI (Main plugin) {
 		this.plugin = plugin;
-		/*reward_list = RewardsConfig.getReward_List();
-		player_data = PlayerDailyRewardsDataFile.getFileConfiguration();
-		int size = reward_list.size()/9;
-		if(size<1) size =1;
-		//Bukkit.getConsoleSender().sendMessage(""+size);
-		inv = Bukkit.createInventory(p, size*9, "Daily Rewards");*/
-		
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
-	public Inventory generateGUI() {
 	
-		
-		/*reward_list = RewardsConfig.getReward_List();
-		player_data = PlayerDailyRewardsDataFile.getFileConfiguration();
-		int size = reward_list.size()/9;
-		if(size<1) size =1;
-		//Bukkit.getConsoleSender().sendMessage(""+size);
-		inv = Bukkit.createInventory(p, size*9, "Daily Rewards");*/
-		
-		
-		
-		
+	
+	public Inventory generateGUI() {
 		ItemStack item = new ItemStack(Material.BLACK_WOOL);
 		ItemMeta meta = null;
-		reward_day = player_data.getInt("PlayerData."+p.getUniqueId().toString()+".Reward_Days");
+		reward_day = player_data.getInt("PlayerData."+p.getUniqueId()+".Reward_Days");
 		String last_claim_date = player_data.getString("PlayerData."+p.getUniqueId().toString()+".Last_Claim_Time");
-		LocalDate.now().compareTo(LocalDate.parse(last_claim_date));
-		//Bukkit.getConsoleSender().sendMessage(""+reward_day);
 		
 		int day=1;
 		for(List<String> days:reward_list) {
@@ -79,17 +59,15 @@ public class RewardGUI implements Listener {
 			meta=item.getItemMeta();
 			item.setAmount(Integer.parseInt(tmp[1]));
 			meta.setDisplayName("Day"+day+" Reward");
-			List<String> lore = days;
-			meta.addItemFlags(ItemFlag.HIDE_ENCHANTS); 
-			meta.addEnchant(Enchantment.DURABILITY, 1, true);
+			List<String> lore = new ArrayList<String>(days);
 			if(LocalDate.now().compareTo(LocalDate.parse(last_claim_date))>=1) {
 				if(day<reward_day) {
 					lore.add(ChatColor.RED+"You Have Claimed This Already.");
-					}else if(day>reward_day) {
-						lore.add(ChatColor.GRAY+"You May Claim This In Future.");
-					}else {
-						lore.add(ChatColor.GREEN+"Click To Claim!"); 
-					}	
+				}else if(day>reward_day) {
+					lore.add(ChatColor.GRAY+"You May Claim This In Future.");
+				}else {
+					lore.add(ChatColor.GREEN+"Click To Claim!"); 
+				}	
 			}
 			if(LocalDate.now().compareTo(LocalDate.parse(last_claim_date))==0) {
 				if(day<reward_day-1) {
@@ -101,57 +79,17 @@ public class RewardGUI implements Listener {
 					
 				}
 			}
+			meta.addItemFlags(ItemFlag.HIDE_ENCHANTS); 
+			meta.addEnchant(Enchantment.DURABILITY, 1, true);
 			meta.setLore(lore);
 			item.setItemMeta(meta);
 			inv.setItem(day-1, item);
 			day++;
 		}
-		//p.openInventory(inv);
 		DailyRewardInventoryStorage.addInventoryToStorage(p,inv);
 		return inv;
 	}
-	@EventHandler
-	/*public void InventoryInteractEvent(InventoryInteractEvent e) {
-		e.setCancelled(true);
-		Player p = (Player) e.getWhoClicked();
-		if(e.getInventory().getHolder().toString()==p.getName()){
-			p.sendMessage("yeah");
-		}
-	}*/
-	public void InventoryClickEvent(InventoryClickEvent e) {
-		p = (Player) e.getWhoClicked();
-		inv = DailyRewardInventoryStorage.getPlayerDailyRewardInventory((Player) e.getWhoClicked());
-		if(!e.getInventory().equals(inv)) return;
-		e.setCancelled(true);
-		//p = (Player) e.getWhoClicked();
-		reward_day=player_data.getInt("PlayerData."+p.getUniqueId().toString()+".Reward_Days");
-		Bukkit.getConsoleSender().sendMessage(""+e.getSlot());
-		Bukkit.getConsoleSender().sendMessage(""+(reward_day-1));
-		if(LocalDate.now().compareTo(LocalDate.parse(player_data.getString("PlayerData."+p.getUniqueId().toString()+".Last_Claim_Time")))>=0){return;}
-		//Bukkit.getConsoleSender().sendMessage(""+e.getClickedInventory().getHolder().toString().contains(p.getName()));
-		if(e.getSlot()==(reward_day-1)){
-			List<String> reward=reward_list.get(reward_day-1);
-			ItemStack item = new ItemStack(Material.BLACK_WOOL);
-			//ItemMeta meta = null;
-			for(String items:reward) {
-				String[] tmp= items.split(":");
-				Material mat = Material.getMaterial(tmp[0]);
-				item.setType(mat);
-				//meta=item.getItemMeta();
-				item.setAmount(Integer.parseInt(tmp[1]));
-				//item.setItemMeta(meta);
-				p.getInventory().addItem(item);
-				player_data.set("PlayerData."+p.getUniqueId().toString()+".Last_Claim_Time", LocalDate.now().toString());
-				player_data.set("PlayerData."+p.getUniqueId().toString()+".Reward_Days",reward_day+1);
-				DailyRewardInventoryStorage.removeInventoryFromStorage(p, inv);
-			}
-			//p.sendMessage("yeeeee");
-		}
-		
-		return;
-	}
-	
-	
 	
 	
 }
+

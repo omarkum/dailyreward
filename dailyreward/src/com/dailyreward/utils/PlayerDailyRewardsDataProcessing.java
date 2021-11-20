@@ -20,9 +20,10 @@ public class PlayerDailyRewardsDataProcessing implements Listener {
 	
 	public PlayerDailyRewardsDataProcessing(Main plugin) {
 		this.plugin = plugin;
-		
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
+	
+	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
@@ -30,7 +31,8 @@ public class PlayerDailyRewardsDataProcessing implements Listener {
 		if(player_data.get(p.getUniqueId().toString())==null) {
 			addNewPlayer(p.getUniqueId().toString(),p);
 		}
-		//LocalDate last_claim_date=(LocalDate)player_data.get("PlayerData."+p.getUniqueId()+".Last_Claim_Time");
+		
+		//display notification to player who haven't claim their daily reward when player log-in
 		LocalDate last_claim_date = LocalDate.parse(player_data.get("PlayerData."+p.getUniqueId()+".Last_Claim_Time").toString());
 		LocalDate current_date = LocalDate.now();
 		if(current_date.compareTo(last_claim_date)>0) {
