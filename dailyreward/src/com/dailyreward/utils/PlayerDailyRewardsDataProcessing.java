@@ -29,7 +29,6 @@ public class PlayerDailyRewardsDataProcessing implements Listener {
 		Player p = e.getPlayer();
 		player_data=PlayerDailyRewardsDataFile.getFileConfiguration();
 		if(player_data.get("PlayerData."+p.getUniqueId().toString())==null) {
-			Bukkit.getConsoleSender().sendMessage("yeeeeeeeeeeeeeeeeee");
 			addNewPlayer(p.getUniqueId().toString(),p);
 		}
 		
