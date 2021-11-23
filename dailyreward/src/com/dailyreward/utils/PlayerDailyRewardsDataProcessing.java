@@ -28,7 +28,8 @@ public class PlayerDailyRewardsDataProcessing implements Listener {
 	public void onJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
 		player_data=PlayerDailyRewardsDataFile.getFileConfiguration();
-		if(player_data.get(p.getUniqueId().toString())==null) {
+		if(player_data.get("PlayerData."+p.getUniqueId().toString())==null) {
+			Bukkit.getConsoleSender().sendMessage("yeeeeeeeeeeeeeeeeee");
 			addNewPlayer(p.getUniqueId().toString(),p);
 		}
 		
@@ -50,6 +51,7 @@ public class PlayerDailyRewardsDataProcessing implements Listener {
 
 	private void addNewPlayer(String uuid,Player p) {
 		player_data.set("PlayerData."+uuid+".Name",p.getName());
+		player_data.set("PlayerData."+uuid+".UUID",uuid);
 		player_data.set("PlayerData."+uuid+".Login_Days",1);
 		player_data.set("PlayerData."+uuid+".Reward_Days",1);
 		player_data.set("PlayerData."+uuid+".Last_Claim_Time","2000-01-01");
