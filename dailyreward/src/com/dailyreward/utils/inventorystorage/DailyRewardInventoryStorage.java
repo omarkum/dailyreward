@@ -1,4 +1,4 @@
-package com.dailyreward.utils;
+package com.dailyreward.utils.inventorystorage;
 
 import java.util.HashMap;
 import java.util.Map;

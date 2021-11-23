@@ -4,9 +4,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.dailyreward.actions.CommandExecution;
 import com.dailyreward.listeners.DailyRewardGuiListener;
-import com.dailyreward.utils.PlayerDailyRewardsDataFile;
-import com.dailyreward.utils.PlayerDailyRewardsDataProcessing;
 import com.dailyreward.utils.RewardsConfig;
+import com.dailyreward.utils.rewardsdata.PlayerDailyRewardsDataFile;
+import com.dailyreward.utils.rewardsdata.PlayerDailyRewardsDataProcessing;
 
 public class Main extends JavaPlugin{
 	

@@ -10,8 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import com.dailyreward.utils.PlayerDailyRewardsDataFile;
-import com.dailyreward.utils.RewardGUI;
+import com.dailyreward.utils.gui.RewardGUI;
+import com.dailyreward.utils.rewardsdata.PlayerDailyRewardsDataFile;
 
 import net.md_5.bungee.api.ChatColor;
 

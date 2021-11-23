@@ -1,4 +1,4 @@
-package com.dailyreward.utils;
+package com.dailyreward.utils.gui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,6 +18,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import com.dailyreward.Main;
+import com.dailyreward.utils.RewardsConfig;
+import com.dailyreward.utils.inventorystorage.DailyRewardInventoryStorage;
+import com.dailyreward.utils.rewardsdata.PlayerDailyRewardsDataFile;
 
 import net.md_5.bungee.api.ChatColor;
 

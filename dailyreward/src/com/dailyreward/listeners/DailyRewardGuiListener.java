@@ -15,9 +15,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import com.dailyreward.Main;
-import com.dailyreward.utils.DailyRewardInventoryStorage;
-import com.dailyreward.utils.PlayerDailyRewardsDataFile;
 import com.dailyreward.utils.RewardsConfig;
+import com.dailyreward.utils.inventorystorage.DailyRewardInventoryStorage;
+import com.dailyreward.utils.rewardsdata.PlayerDailyRewardsDataFile;
 
 public class DailyRewardGuiListener implements Listener{
 		private Main plugin;

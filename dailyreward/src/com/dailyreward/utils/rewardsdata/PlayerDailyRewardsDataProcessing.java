@@ -1,4 +1,4 @@
-package com.dailyreward.utils;
+package com.dailyreward.utils.rewardsdata;
 
 import java.time.LocalDate;
 
