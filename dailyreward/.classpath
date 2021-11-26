@@ -7,5 +7,6 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="D:/Drive/MC Server Test/Server/1.17.1/spigot.jar"/>
+	<classpathentry kind="lib" path="D:/Drive/MC Server Test/Server/1.17.1/plugins/New folder/LuckPerms-Bukkit-5.3.77.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

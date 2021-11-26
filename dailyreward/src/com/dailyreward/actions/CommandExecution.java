@@ -1,18 +1,15 @@
 package com.dailyreward.actions;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 import com.dailyreward.utils.gui.RewardGUI;
-import com.dailyreward.utils.rewardsdata.PlayerDailyRewardsDataFile;
+import com.dailyreward.utils.gui.RewardGUIVIP;
 
+import net.luckperms.api.LuckPermsProvider;
 import net.md_5.bungee.api.ChatColor;
 
 public class CommandExecution implements CommandExecutor{
@@ -32,8 +29,18 @@ public class CommandExecution implements CommandExecutor{
 			RewardGUI rewardGUI = new RewardGUI(p);
 			p.openInventory(rewardGUI.generateGUI());
 			return true;
+		}else if(args[0].equalsIgnoreCase("vip")) {
+			if(!Bukkit.getPluginManager().isPluginEnabled("LuckPerms")) { p.sendMessage(ChatColor.GOLD+"This Function Is Not Available Now!"); return true;}
+			if(!LuckPermsProvider.get().getUserManager().getUser(p.getUniqueId()).getPrimaryGroup().toString().equalsIgnoreCase("default")) {
+				RewardGUIVIP rewardGUIVIP = new RewardGUIVIP(p);
+				p.openInventory(rewardGUIVIP.generateGUIVIP());
+				return true;
+			
+			}else {
+				p.sendMessage("You have any rank yet.");
+			}
 		}else {
-			p.sendMessage(ChatColor.GOLD+"Usage: /dr or /dailyreward");
+			p.sendMessage(ChatColor.GOLD+"Usage: /dr or /dailyreward and /dr vip [rank] or /dailyreward vip [rank]");
 		}
 		
 		

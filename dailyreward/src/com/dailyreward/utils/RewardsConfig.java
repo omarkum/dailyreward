@@ -17,6 +17,7 @@ public class RewardsConfig {
 	private static FileConfiguration dataconfig= null;
 	private static File configfile = null;
 	private static ArrayList<List<String>> reward_list =  new ArrayList<List<String>>();
+	private static ArrayList<List<String>> reward_list_vip = new ArrayList<List<String>>();
 	
 	
 	public static void setup() {
@@ -59,29 +60,19 @@ public class RewardsConfig {
 			rewards.put("Day7",day7);
 			
 			dataconfig.createSection("Rewards");
-			//dataconfig.createSection("Rewards.Day1");
-			//dataconfig.set("Rewards.Day1", item);
 			dataconfig.set("Rewards", rewards);
 			save();
-			//Bukkit.getConsoleSender().sendMessage(rewards.toString());
 		
 		}
+		
+		
 		dataconfig = YamlConfiguration.loadConfiguration(configfile);
 		Set<String> testList = dataconfig.getConfigurationSection("Rewards").getKeys(true);
-		
-		//Bukkit.getConsoleSender().sendMessage(testList.toString());
-		
-		
-		
-		
-		
 		for(String n:testList) {
 			reward_list.add(dataconfig.getStringList("Rewards."+n));
 			
 		}
-		//Bukkit.getConsoleSender().sendMessage(reward_list.toString());
 		
-		//Bukkit.getConsoleSender().sendMessage(reward_items);
 	}
 	
 	
@@ -90,6 +81,14 @@ public class RewardsConfig {
 	}
 	public static ArrayList<List<String>> getReward_List(){
 		return reward_list;
+	}
+	public static ArrayList<List<String>> getReward_List_VIP(String s) {
+		reward_list_vip.clear();
+		Set<String> reward_list_vip_ranks = dataconfig.getConfigurationSection(s).getKeys(false);
+		for(String n:reward_list_vip_ranks) {
+			reward_list_vip.add(dataconfig.getStringList(s+"."+n));
+		}
+		return reward_list_vip;
 	}
 	public static void save(){
 		try {
@@ -102,11 +101,5 @@ public class RewardsConfig {
 	public static void reload(){
 		dataconfig = YamlConfiguration.loadConfiguration(configfile);
 	}
-	/*public static void test() {
-		dataconfig = YamlConfiguration.loadConfiguration(configfile);
-		List<String> test = dataconfig.getStringList("Rewards.Day1");
-		//List<String> test = new ArrayList<String>();
-		test.add("test1");
-		Bukkit.getConsoleSender().sendMessage(test.toString());
-	}*/
+	
 }

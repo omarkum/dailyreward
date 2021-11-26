@@ -9,52 +9,47 @@ import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.dailyreward.Main;
 import com.dailyreward.utils.RewardsConfig;
 import com.dailyreward.utils.inventorystorage.DailyRewardInventoryStorage;
-import com.dailyreward.utils.rewardsdata.PlayerDailyRewardsDataFile;
+import com.dailyreward.utils.rewardsdatavip.PlayerDailyRewardsVipDataFile;
 
 import net.luckperms.api.LuckPermsProvider;
 import net.md_5.bungee.api.ChatColor;
 
-public class RewardGUI implements Listener {
-	private static Main plugin;
+public class RewardGUIVIP {
+	
 	private Inventory inv = null;
 	private Player p;
-	private ArrayList<List<String>> reward_list= new ArrayList<List<String>>();
-	private static FileConfiguration player_data= null;
+	private ArrayList<List<String>> reward_list_vip= new ArrayList<List<String>>();
+	private static FileConfiguration player_data_vip= null;
+	private String rank ="";
 	private int reward_day =0;
 	
-	public RewardGUI(Player p){
-		reward_list = RewardsConfig.getReward_List();
-		player_data = PlayerDailyRewardsDataFile.getFileConfiguration();
+	public RewardGUIVIP(Player p){
+		rank=LuckPermsProvider.get().getUserManager().getUser(p.getUniqueId()).getPrimaryGroup().toString();
+		reward_list_vip = RewardsConfig.getReward_List_VIP(rank);
+		player_data_vip = PlayerDailyRewardsVipDataFile.getFileConfiguration();
 		this.p=p;
-		int size = reward_list.size()/9;
+		int size = reward_list_vip.size()/9;
 		if(size<1) size =1;
-		inv = Bukkit.createInventory(p, size*9, "Daily Rewards");
+		inv = Bukkit.createInventory(p, size*9, "Daily Rewards "+rank);
 	}
 	
 	
-	public RewardGUI (Main plugin) {
-		this.plugin = plugin;
-		Bukkit.getPluginManager().registerEvents(this, plugin);
-	}
 	
-	
-	public Inventory generateGUI() {
+	public Inventory generateGUIVIP() {
 		ItemStack item = new ItemStack(Material.BLACK_WOOL);
 		ItemMeta meta = null;
-		reward_day = player_data.getInt("PlayerData."+p.getUniqueId()+".Reward_Days");
-		String last_claim_date = player_data.getString("PlayerData."+p.getUniqueId().toString()+".Last_Claim_Time");
+		reward_day = player_data_vip.getInt("PlayerData."+p.getUniqueId().toString()+".Reward_Days");
+		String last_claim_date = player_data_vip.getString("PlayerData."+p.getUniqueId().toString()+".Last_Claim_Time");
 		
 		int day=1;
-		for(List<String> days:reward_list) {
+		for(List<String> days:reward_list_vip) {
 			String[] tmp=days.get(0).split(":");
 			Material mat = Material.getMaterial(tmp[0]);
 			item.setType(mat);
@@ -74,12 +69,13 @@ public class RewardGUI implements Listener {
 			if(LocalDate.now().compareTo(LocalDate.parse(last_claim_date))==0) {
 				if(day<reward_day-1) {
 					lore.add(ChatColor.RED+"You Have Claimed This Already");
-				}else if(day==reward_list.size()&&reward_day-1==0) {
+				}else if(day==reward_list_vip.size()&&reward_day-1==0) {
 					lore.add(ChatColor.GOLD+"You Have Claimed This Today!");
 				}else if (day>reward_day-1) {
 					lore.add(ChatColor.GRAY+"Your May Claim This In Future");
 				}else {
 					lore.add(ChatColor.GOLD+"You Have Claimed This Today!");
+					
 				}
 			}
 			meta.addItemFlags(ItemFlag.HIDE_ENCHANTS); 
@@ -92,7 +88,4 @@ public class RewardGUI implements Listener {
 		DailyRewardInventoryStorage.addInventoryToStorage(p,inv);
 		return inv;
 	}
-	
-	
 }
-
